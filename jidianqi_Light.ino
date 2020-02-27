@@ -11,7 +11,7 @@ char pswd[] = "************";
  
 bool oState = false;
  
-BlinkerButton Button1("btn-abc");
+BlinkerButton Button1("btn-abc");   //定义一个开关按键，键值是btn-abc
  
 //按下按键即会执行该函数
 void button1_callback(const String & state) {
