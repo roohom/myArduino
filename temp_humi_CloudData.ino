@@ -4,9 +4,9 @@
 #include <Blinker.h>
 #include <DHT.h>
  
-char auth[] = "478ff5e77704";    //设备key
-char ssid[] = "CMCC-WnWH";         //wifi ssid
-char pswd[] = "7awwwhza";     //wifi 密码
+char auth[] = "**********";    //设备key
+char ssid[] = "**********";         //wifi ssid
+char pswd[] = "**********";     //wifi 密码
                                                                                                                                             
 BlinkerNumber HUMI("humi");    //定义湿度数据键名
 BlinkerNumber TEMP("temp");    //定义温度数据键名
