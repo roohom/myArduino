@@ -3,9 +3,9 @@
 
 #include <Blinker.h>
 
-char auth[] = "2f1a33e91e8b";
-char ssid[] = "CMCC-WnWH";
-char pswd[] = "7awwwhza";
+char auth[] = "************";
+char ssid[] = "************";
+char pswd[] = "************";
 
 #define LED 0    //0对应GPIO0  2对应GPIO2
  
