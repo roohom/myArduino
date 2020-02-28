@@ -3,18 +3,19 @@
 
 #include <Blinker.h>
 
-char auth[] = "************";
-char ssid[] = "************";
-char pswd[] = "************";
+char auth[] = "2f1a33e91e8b";
+char ssid[] = "CMCC-WnWH";
+char pswd[] = "7awwwhza";
 
 #define LED 0    //0对应GPIO0  2对应GPIO2
  
 bool oState = false;
  
-BlinkerButton Button1("btn-abc");   //定义一个开关按键，键值是btn-abc
+BlinkerButton Button1("btn-abc");
  
 //按下按键即会执行该函数
-void button1_callback(const String & state) {
+void button1_callback(const String & state) 
+{
   digitalWrite(LED, !digitalRead(LED));
   BLINKER_LOG("get button state: ", state);
   Button1.print(state);
@@ -29,6 +30,19 @@ void button1_callback(const String & state) {
     Button1.print("off");
   }
 }
+
+void heartbeat()
+{
+  if(oState)
+  {
+    Button1.text("已开启");
+    Button1.print("on");
+  }
+  else{
+    Button1.text("已关闭");
+    Button1.print("off");
+  }
+}
  
 void miotPowerState(const String & state)
 {
@@ -37,12 +51,17 @@ void miotPowerState(const String & state)
   if (state == BLINKER_CMD_ON) {
     digitalWrite(LED, LOW);
     BlinkerMIOT.powerState("on");   
-    BlinkerMIOT.print();    
+    BlinkerMIOT.print();  
+    Button1.text("已开启");
+    Button1.print("on");
     oState = true;
+    
   } else if (state == BLINKER_CMD_OFF) {
     digitalWrite(LED, HIGH);
     BlinkerMIOT.powerState("off");  
-    BlinkerMIOT.print();    
+    BlinkerMIOT.print(); 
+    Button1.text("已关闭");
+    Button1.print("off");
     oState = false;
   }
 }
@@ -82,13 +101,18 @@ void setup()
 {
   Serial.begin(115200);
   BLINKER_DEBUG.stream(Serial);
+  
   pinMode(LED, OUTPUT);
   digitalWrite(LED, HIGH);
+  
   Blinker.begin(auth, ssid, pswd);
   Blinker.attachData(dataRead);
+  
   Button1.attach(button1_callback);
   BlinkerMIOT.attachPowerState(miotPowerState);
   BlinkerMIOT.attachQuery(miotQuery);
+  Blinker.attachHeartbeat(heartbeat);
+  BLINKER_DEBUG.debugAll();
 }
  
 void loop()
